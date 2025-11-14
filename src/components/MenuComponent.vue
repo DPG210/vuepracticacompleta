@@ -33,7 +33,7 @@
             <router-link class="nav-link" to="/fichero">Subir fichero</router-link>
           </li>
           <!-- Dropdown -->
-          <!-- <li class="nav-item dropdown">
+           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -44,12 +44,12 @@
             >
               Equipos
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="text-align:center">
               <li v-for="equipo in equipos" :key="equipo">
                 <router-link :to="'/equipo/'+equipo.idEquipo">{{equipo.nombre}}</router-link>
                 </li>
             </ul>
-          </li> -->
+          </li> 
         </ul>
         <button @click="cerrarSesion()">Cerrar Sesion</button>
       </div>
@@ -58,8 +58,20 @@
 </template>
 
 <script>
+import ServiceEquipos from "./../services/ServiceEquipos"
+const service= new ServiceEquipos();
 export default {
     name:"MenuComponent",
+    data(){
+            return{
+                equipos:[]
+            }
+        },
+        mounted(){
+            service.getEquipos().then((result)=>{
+                this.equipos=result
+            })
+        },
     methods:{
         cerrarSesion(){
             localStorage.removeItem("token");
