@@ -29,6 +29,7 @@ export default {
                 localStorage.setItem("token", result);
                 console.log(localStorage.getItem("token"));
                 this.$router.push("/alumnos");
+                //Si se quiere quitar el usuario cuando se recarge la pagina, cambiar localStorage por sessionStorage
             })
         }
     }
