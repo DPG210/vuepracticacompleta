@@ -3,12 +3,9 @@ import axios from "axios";
 
 export default class ServiceFicheros {
     
-    /**
-     * Sube un fichero (nombre y base64) a la API
-     * @param {object} fileModel - Objeto con { nombre, base64 }
-     */
+   
     postFile(fileModel) {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function(resolve) {
             let request = "api/testingfiles";
             
             let url = Global.urlApiFiles + request; 
@@ -19,19 +16,11 @@ export default class ServiceFicheros {
                 }
             };
 
-            // 'fileModel' es el 'cuerpo' de la petición
-            axios.post(url, fileModel, config)
-                .then(response => {
-                    // Resolvemos con la data completa, 
-                    // el componente buscará 'response.urlFile'
+         
+            axios.post(url, fileModel, config).then(response => {
                     resolve(response.data);
                 })
-                .catch(error => {
-                    // Es importante 'rechazar' la promesa si falla,
-                    // para que el 'try/catch' del componente funcione.
-                    console.error("Error en postFile:", error);
-                    reject(error);
-                });
+                
         });
     }
 

@@ -38,6 +38,9 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/crear">Crear Departamento</router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/subirfichero">Subir fichero V2</router-link>
+          </li>
           <!-- Dropdown -->
            <li class="nav-item dropdown">
             <a

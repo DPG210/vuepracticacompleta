@@ -9,6 +9,7 @@ import UpdateDepartamento from "./components/UpdateDepartamento.vue"
 import CrearDepartamento from "./components/CrearDepartamento.vue"
 import NotFound from "./components/NotFound.vue"
 import DepartamentosHome from "./components/DepartamentosHome.vue"
+import SubirFicheroV2 from "./components/SubirFicheroV2.vue"
 
 
 const myRoutes=[
@@ -21,6 +22,7 @@ const myRoutes=[
     {path:"/crear" , component:CrearDepartamento},
     {path:"/detalles/:iddepartamento", component:DetallesDepartamento},
     {path:"/update/:iddepartamento", component:UpdateDepartamento},
+    {path:"/subirfichero", component:SubirFicheroV2},
     {path:"/:pathMatch(.*)*",  component:NotFound}
 ]
 

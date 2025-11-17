@@ -1,33 +1,47 @@
 <template>
   <div class="page-background">
     <div class="container mt-4">
-
-      <div v-if="cargando" class="d-flex justify-content-center p-5 loading-screen">
+      <div
+        v-if="cargando"
+        class="d-flex justify-content-center p-5 loading-screen"
+      >
         <div>
-          <img src="/assets/images/mifoto.jfif" alt="Cargando...">
+          <img src="/assets/images/mifoto.jfif" alt="Cargando..." />
           <h3 class="loading-text">Cargando...</h3>
         </div>
       </div>
 
       <div v-else-if="!cargando && datosEquipo" class="row g-4 g-lg-5">
-
         <div class="col-lg-4">
-          <div class="sticky-top" style="top: 80px; z-index: 1;">
+          <div class="sticky-top" style="top: 80px; z-index: 1">
             <div class="card shadow card-equipo">
-              <img :src="datosEquipo.equipo.imagen" class="card-img-top team-logo" :alt="datosEquipo.equipo.nombre">
-              
+              <img
+                :src="datosEquipo.equipo.imagen"
+                class="card-img-top team-logo"
+                :alt="datosEquipo.equipo.nombre"
+              />
+
               <div class="card-body">
-                <h4 class="card-title team-name">{{ datosEquipo.equipo.nombre }}</h4>
-                <p class="card-text team-description">{{ datosEquipo.equipo.descripcion }}</p>
+                <h4 class="card-title team-name">
+                  {{ datosEquipo.equipo.nombre }}
+                </h4>
+                <p class="card-text team-description">
+                  {{ datosEquipo.equipo.descripcion }}
+                </p>
               </div>
-              
+
               <ul class="list-group list-group-flush team-details">
                 <li class="list-group-item d-flex justify-content-between">
                   <strong>Champions:</strong>
                   <span>{{ datosEquipo.equipo.champions }}</span>
                 </li>
                 <li class="list-group-item">
-                  <a :href="datosEquipo.equipo.web" class="btn btn-primary w-100" target="_blank" rel="noopener noreferrer">
+                  <a
+                    :href="datosEquipo.equipo.web"
+                    class="btn btn-primary w-100"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Sitio Web
                   </a>
                 </li>
@@ -40,12 +54,18 @@
           <h3 class="section-title">Plantilla</h3>
 
           <div v-if="datosEquipo.jugadores && datosEquipo.jugadores.length > 0">
-            
             <div class="player-grid">
-              
-              <div v-for="jugador in datosEquipo.jugadores" :key="jugador.idJugador" class="card shadow-sm player-card">
-                <img :src="jugador.imagen" class="card-img-top player-image" :alt="jugador.nombre">
-                
+              <div
+                v-for="jugador in datosEquipo.jugadores"
+                :key="jugador.idJugador"
+                class="card shadow-sm player-card"
+              >
+                <img
+                  :src="jugador.imagen"
+                  class="card-img-top player-image"
+                  :alt="jugador.nombre"
+                />
+
                 <div class="card-body p-3">
                   <h6 class="card-title player-name">
                     {{ jugador.nombre }}
@@ -54,14 +74,20 @@
                     {{ jugador.posicion }}
                   </small>
                 </div>
-              </div> </div> </div>
+              </div>
+            </div>
+          </div>
           <div v-else class="alert alert-light text-center">
             No se encontraron jugadores para este equipo.
-          </div> </div> </div> </div> </div> </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <script>
-// El script y la lógica siguen siendo exactamente los mismos
-import ServiceEquipos from './../services/ServiceEquipos';
+import ServiceEquipos from "./../services/ServiceEquipos";
 const service = new ServiceEquipos();
 
 export default {
@@ -69,19 +95,19 @@ export default {
   data() {
     return {
       cargando: true,
-      datosEquipo: null 
-    }
+      datosEquipo: null,
+    };
   },
   mounted() {
     const id = parseInt(this.$route.params.idequipo);
     this.cargarDatosEquipo(id);
   },
   watch: {
-    '$route.params.idequipo'(newId, oldId) {
-      if (newId !== oldId) {
-        this.cargarDatosEquipo(parseInt(newId));
+    "$route.params.idequipo"(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.cargarDatosEquipo(parseInt(newVal));
       }
-    }
+    },
   },
   methods: {
     cargarDatosEquipo(id) {
@@ -89,20 +115,17 @@ export default {
       let equipoPromise = service.getEquipo(id);
       let jugadoresPromise = service.getJugadores(id);
 
-      Promise.all([ equipoPromise, jugadoresPromise ])
-        .then(response => {
+      Promise.all([equipoPromise, jugadoresPromise])
+        .then((response) => {
           this.datosEquipo = {
             equipo: response[0],
-            jugadores: response[1]
+            jugadores: response[1],
           };
           this.cargando = false;
-        }).catch(error => {
-          console.error("Error al cargar datos:", error);
-          this.cargando = false;
-        });
-    }
-  }
-}
+        })
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -110,7 +133,8 @@ export default {
 .page-background {
   background-color: #f4f7f6; /* Un gris muy claro, no blanco puro */
   min-height: calc(100vh - 56px);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
 }
 
 .loading-screen {
@@ -135,13 +159,13 @@ export default {
 .card {
   border: none;
   border-radius: 12px; /* Esquinas más suaves */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
   transition: all 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* --- Tarjeta del Equipo --- */
